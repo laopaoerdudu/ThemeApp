@@ -13,4 +13,11 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <style name="AppTheme" parent="Theme.Material3.DayNight.NoActionBar"></style>
+
+    <!-- 基于规范，覆盖的主题最好是加上 overlay 标示 -->
+    <style name="AppTheme.Overlay" parent="ThemeOverlay.Material3.DynamicColors.DayNight">
+        <item name="colorPrimary">@color/purple_700</item>
+    </style>
 </resources>
