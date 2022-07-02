@@ -10,31 +10,46 @@
         android:id="@+id/tvTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="?attr/theme_sub_color"
+        android:layout_margin="10dp"
         android:background="?attr/theme_main_color"
         android:gravity="center"
         android:text="WWE Super star"
+        android:textColor="?attr/theme_sub_color"
         android:textSize="18sp"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_margin="10dp"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/ivProfile"
         android:layout_width="280dp"
         android:layout_height="280dp"
-        android:scaleType="fitXY"
-        android:background="?attr/theme_main_bg"
-        app:layout_constraintTop_toBottomOf="@id/tvTitle"
-        app:layout_constraintStart_toStartOf="parent"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp" />
+        android:layout_marginTop="10dp"
+        android:background="?attr/theme_main_bg"
+        android:scaleType="fitXY"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvTitle" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnRecreate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="重新创建 Activity 换肤"
         android:layout_margin="10dp"
+        android:text="重新创建 Activity 换肤"
         app:layout_constraintTop_toBottomOf="@id/ivProfile" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnAddView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="Add view via coding and change skin"
+        app:layout_constraintTop_toBottomOf="@id/btnRecreate" />
+
+    <LinearLayout
+        android:id="@+id/viewLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@id/btnAddView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
