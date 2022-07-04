@@ -21,7 +21,7 @@ import com.wwe.helper.SkinLoader
  */
 // LayoutInflaterFactory marked as Deprecated
 class SkinInflaterFactory : LayoutInflater.Factory2 {
-    val attrViews: MutableList<AttrView> = mutableListOf()
+    private val attrViews: MutableList<AttrView> = mutableListOf()
 
     override fun onCreateView(
         parent: View?,
@@ -33,6 +33,7 @@ class SkinInflaterFactory : LayoutInflater.Factory2 {
         val enableSkin = attributes.getBoolean(R.styleable.SkinSupport_enableSkin, false)
         attributes.recycle()
         if (enableSkin) {
+            // 委托给系统的实现，保证兼容性
             (context as? AppCompatActivity)?.delegate?.createView(parent, name, context, attrs)
                 ?.let { view ->
                     val attrView = AttrView(view)
@@ -42,11 +43,17 @@ class SkinInflaterFactory : LayoutInflater.Factory2 {
                             Log.i("WWE", "SkinInflaterFactory -> attributeName -> $attributeName")
                             val attributeValue = attrs.getAttributeValue(i)
                             val attrId = attributeValue.substring(1)
-                            Log.i("WWE", "SkinInflaterFactory -> attributeValue -> $attributeValue, attrId -> $attrId")
+                            Log.i(
+                                "WWE",
+                                "SkinInflaterFactory -> attributeValue -> $attributeValue, attrId -> $attrId"
+                            )
                             if (attributeValue.startsWith("?")) {
                                 // 先解析主题，然后找到 id，再去找资源名称和类型
                                 val resIdFromTheme = getResIdFromTheme(context, attrId.toInt())
-                                Log.i("WWE", "SkinInflaterFactory -> resIdFromTheme -> $resIdFromTheme")
+                                Log.i(
+                                    "WWE",
+                                    "SkinInflaterFactory -> resIdFromTheme -> $resIdFromTheme"
+                                )
                                 if (resIdFromTheme > 0) {
                                     attrView.attrItems.add(AttrItem(attributeName, resIdFromTheme))
                                 }
