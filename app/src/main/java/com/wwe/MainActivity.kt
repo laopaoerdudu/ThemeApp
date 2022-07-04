@@ -20,6 +20,10 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this, ThemeActivity::class.java))
         }
 
+        findViewById<AppCompatButton>(R.id.changeSkinByFactory).setOnClickListener {
+            startActivity(Intent(this, FactoryActivity::class.java))
+        }
+
         findViewById<FloatingActionButton>(R.id.floating_button).setOnClickListener {
             if (isDarkTheme()) {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)

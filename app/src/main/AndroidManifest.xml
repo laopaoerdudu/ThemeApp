@@ -22,6 +22,10 @@
         <activity
             android:name=".ThemeActivity"
             android:exported="false" />
+
+        <activity
+            android:name=".FactoryActivity"
+            android:exported="false" />
     </application>
 
 </manifest>

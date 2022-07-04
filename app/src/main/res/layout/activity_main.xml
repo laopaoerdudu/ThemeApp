@@ -14,6 +14,14 @@
         android:layout_margin="10dp"
         android:text="使用 Theme 换肤" />
 
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/changeSkinByFactory"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="LayoutInflater#setFactory2"
+        android:layout_margin="10dp"
+        app:layout_constraintTop_toBottomOf="@id/changeSkinByTheme"/>
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floating_button"
         android:layout_width="wrap_content"
