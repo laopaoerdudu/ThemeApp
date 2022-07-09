@@ -2,6 +2,7 @@ package com.wwe
 
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -14,7 +15,6 @@ import com.wwe.loading.LoadingSkinViewModelFactory
 import java.lang.ref.WeakReference
 
 class FactoryActivity : AppCompatActivity() {
-    private val layoutFactory2 = SkinInflaterFactory()
     private val mViewModel: LoadingSkinViewModel by viewModels {
         LoadingSkinViewModelFactory(
             WeakReference(this), "skin.apk"
@@ -30,6 +30,7 @@ class FactoryActivity : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        val layoutFactory2 = SkinInflaterFactory(delegate)
         LayoutInflaterCompat.setFactory2(layoutInflater, layoutFactory2)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_factory_layout)

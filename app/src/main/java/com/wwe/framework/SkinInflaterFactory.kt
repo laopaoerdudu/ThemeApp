@@ -7,7 +7,7 @@ import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.ViewCompat
 import com.wwe.R
 import com.wwe.data.AttrItem
@@ -20,7 +20,7 @@ import com.wwe.helper.SkinLoader
  * @color/red 这样的直接根据 id 找到资源名称和类型
  */
 // LayoutInflaterFactory marked as Deprecated
-class SkinInflaterFactory : LayoutInflater.Factory2 {
+class SkinInflaterFactory(private val delegate: AppCompatDelegate) : LayoutInflater.Factory2 {
     private val attrViews: MutableList<AttrView> = mutableListOf()
 
     override fun onCreateView(
@@ -34,39 +34,37 @@ class SkinInflaterFactory : LayoutInflater.Factory2 {
         attributes.recycle()
         if (enableSkin) {
             // 委托给系统的实现，保证兼容性
-            (context as? AppCompatActivity)?.delegate?.createView(parent, name, context, attrs)
-                ?.let { view ->
-                    val attrView = AttrView(view)
-                    for (i in 0 until attrs.attributeCount) {
-                        val attributeName = attrs.getAttributeName(i)
-                        if (isSupportAttr(attributeName)) {
-                            Log.i("WWE", "SkinInflaterFactory -> attributeName -> $attributeName")
-                            val attributeValue = attrs.getAttributeValue(i)
-                            val attrId = attributeValue.substring(1)
-                            Log.i(
-                                "WWE",
-                                "SkinInflaterFactory -> attributeValue -> $attributeValue, attrId -> $attrId"
-                            )
-                            if (attributeValue.startsWith("?")) {
-                                // 先解析主题，然后找到 id，再去找资源名称和类型
-                                val resIdFromTheme = getResIdFromTheme(context, attrId.toInt())
-                                Log.i(
-                                    "WWE",
-                                    "SkinInflaterFactory -> resIdFromTheme -> $resIdFromTheme"
-                                )
-                                if (resIdFromTheme > 0) {
-                                    attrView.attrItems.add(AttrItem(attributeName, resIdFromTheme))
-                                }
-                            } else if (attributeValue.startsWith("@")) {
-                                attrView.attrItems.add(AttrItem(attributeName, attrId.toInt()))
-                            } else {
-                                // No need to handle hard code attributeValue
-                            }
+            val view = delegate.createView(parent, name, context, attrs)
+            val attrView = AttrView(view)
+            for (i in 0 until attrs.attributeCount) {
+                val attributeName = attrs.getAttributeName(i)
+                if (isSupportAttr(attributeName)) {
+                    Log.i("WWE", "SkinInflaterFactory -> attributeName -> $attributeName")
+                    val attributeValue = attrs.getAttributeValue(i)
+                    val attrId = attributeValue.substring(1)
+                    Log.i(
+                        "WWE",
+                        "SkinInflaterFactory -> attributeValue -> $attributeValue, attrId -> $attrId"
+                    )
+                    if (attributeValue.startsWith("?")) {
+                        // 先解析主题，然后找到 id，再去找资源名称和类型
+                        val resIdFromTheme = getResIdFromTheme(context, attrId.toInt())
+                        Log.i(
+                            "WWE",
+                            "SkinInflaterFactory -> resIdFromTheme -> $resIdFromTheme"
+                        )
+                        if (resIdFromTheme > 0) {
+                            attrView.attrItems.add(AttrItem(attributeName, resIdFromTheme))
                         }
+                    } else if (attributeValue.startsWith("@")) {
+                        attrView.attrItems.add(AttrItem(attributeName, attrId.toInt()))
+                    } else {
+                        // No need to handle hard code attributeValue
                     }
-                    attrViews.add(attrView)
-                    return view
                 }
+            }
+            attrViews.add(attrView)
+            return view
         }
         return null
     }
