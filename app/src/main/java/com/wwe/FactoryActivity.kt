@@ -1,13 +1,10 @@
 package com.wwe
 
 import android.os.Bundle
-import android.util.Log
-import android.view.LayoutInflater
 import android.widget.Button
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.AppCompatButton
 import androidx.core.view.LayoutInflaterCompat
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.wwe.framework.SkinInflaterFactory
@@ -26,6 +23,10 @@ class FactoryActivity : AppCompatActivity() {
         findViewById(R.id.tvTitle)
     }
 
+    private val tvContent: TextView by lazy {
+        findViewById(R.id.tvContent)
+    }
+
     private val floatingButton: FloatingActionButton by lazy {
         findViewById(R.id.floatingButton)
     }
@@ -37,11 +38,14 @@ class FactoryActivity : AppCompatActivity() {
         setContentView(R.layout.activity_factory_layout)
         findViewById<Button>(R.id.applySkinBtn).setOnClickListener {
             mViewModel.didClickLoadingSkin()
-            Log.i("WWE", "FactoryActivity -> L39")
             layoutFactory2.applySkin(this)
         }
 
         mViewModel.content.observe(this) {
+            tvContent.text = it
+        }
+
+        mViewModel.title.observe(this) {
             tvTitle.text = it
         }
 

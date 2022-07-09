@@ -11,6 +11,7 @@ interface LoadingContract {
     }
 
     interface LoadingOutput {
+        val title: LiveData<String>
         val content: LiveData<String>
         val isFloatingButtonVisibility: MutableLiveData<Int>
     }

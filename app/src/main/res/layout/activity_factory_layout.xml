@@ -11,13 +11,24 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:background="#ffffff"
         android:gravity="center"
-        android:text="@string/test_string"
+        android:text="@string/title_string"
         android:textColor="?attr/module_color"
         android:textSize="16sp"
         app:enableSkin="true"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:gravity="center"
+        android:text="@string/content_string"
+        android:textColor="?attr/module_color"
+        android:textSize="16sp"
+        app:enableSkin="true"
+        app:layout_constraintTop_toBottomOf="@id/tvTitle"/>
 
     <Button
         android:id="@+id/applySkinBtn"
@@ -25,7 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:text="Apply skin"
-        app:layout_constraintTop_toBottomOf="@id/tvTitle" />
+        app:layout_constraintTop_toBottomOf="@id/tvContent" />
 
     <Button
         android:id="@+id/resetSkinBtn"
