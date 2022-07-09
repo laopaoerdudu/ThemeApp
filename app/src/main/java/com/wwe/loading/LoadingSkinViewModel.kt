@@ -24,7 +24,7 @@ class LoadingSkinViewModel(
 
     override fun didClickApplySkin(layoutFactory2: SkinInflaterFactory) {
         viewModelScope.launch {
-            loadingSkin()
+            loadingSkinResource()
             (context.get() as? Context)?.let {
                 layoutFactory2.applySkin(it)
             }
@@ -48,10 +48,10 @@ class LoadingSkinViewModel(
 
     override val isFloatingButtonVisibility: MutableLiveData<Int> = MutableLiveData(View.GONE)
 
-    private suspend fun loadingSkin() {
+    private suspend fun loadingSkinResource() {
         (context.get() as? AppCompatActivity)?.let { activity ->
             withContext(Dispatchers.IO) {
-                SkinLoader.loadSkinResource(
+                SkinLoader.loadingSkinResource(
                     activity,
                     File(activity.getExternalFilesDir(null), skinName).absolutePath
                 )

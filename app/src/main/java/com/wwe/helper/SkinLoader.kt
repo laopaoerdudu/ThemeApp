@@ -12,7 +12,7 @@ object SkinLoader {
     private var resource: Resources? = null
     private var skinPkgName: String? = ""
 
-    fun loadSkinResource(context: Context, skinPath: String) {
+    fun loadingSkinResource(context: Context, skinPath: String) {
         try {
             (context.packageManager.getPackageArchiveInfo(
                 skinPath,
