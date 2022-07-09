@@ -40,7 +40,7 @@ object SkinLoader {
         if (resource == null || skinIdentifierId <= 0) {
             return context.getString(redId)
         }
-        return resource?.getString(skinIdentifierId) ?: "Skin text not found from L41"
+        return resource?.getString(skinIdentifierId) ?: "Skin text not found from L43"
     }
 
     fun getText(context: Context, attrName: String, attrType: String): String {
@@ -54,7 +54,7 @@ object SkinLoader {
                 )
             )
         }
-        return resource?.getString(skinResourceId) ?: "Skin text not found from L49"
+        return resource?.getString(skinResourceId) ?: "Skin text not found from L57"
     }
 
     fun getTextColor(context: Context, redId: Int): Int {
