@@ -9,8 +9,8 @@ import android.util.Log
 import androidx.core.content.ContextCompat
 
 object SkinLoader {
-    private lateinit var skinPkgName: String
     private var resource: Resources? = null
+    private var skinPkgName: String? = ""
 
     fun loadSkinResource(context: Context, skinPath: String) {
         try {
@@ -85,6 +85,11 @@ object SkinLoader {
                 context.resources.getIdentifier(attrName, attrType, context.packageName)
             )
         }
+    }
+
+    fun resetSkin() {
+        resource = null
+        skinPkgName = null
     }
 
     private fun getIdentifier(context: Context, redId: Int): Int {

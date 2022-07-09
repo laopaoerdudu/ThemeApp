@@ -8,7 +8,8 @@ import com.wwe.framework.SkinInflaterFactory
 interface LoadingContract {
 
     interface LoadingInput {
-        fun didClickLoadingSkin(layoutFactory2: SkinInflaterFactory)
+        fun didClickApplySkin(layoutFactory2: SkinInflaterFactory)
+        fun didClickResetSkin(layoutFactory2: SkinInflaterFactory)
     }
 
     interface LoadingOutput {

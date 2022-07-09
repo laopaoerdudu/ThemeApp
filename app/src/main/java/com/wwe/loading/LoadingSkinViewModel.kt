@@ -14,18 +14,27 @@ import java.io.File
 import java.lang.ref.WeakReference
 
 class LoadingSkinViewModel(
-    val context: WeakReference<Context>,
-    val skinName: String
+    private val context: WeakReference<Context>,
+    private val skinName: String
 ) : ViewModel(), LoadingContract.LoadingInput, LoadingContract.LoadingOutput {
+
+    // TODO: update it
     val showLoading: SingleLiveEvent by lazy { SingleLiveEvent() }
     val hideLoading: SingleLiveEvent by lazy { SingleLiveEvent() }
 
-    override fun didClickLoadingSkin(layoutFactory2: SkinInflaterFactory) {
+    override fun didClickApplySkin(layoutFactory2: SkinInflaterFactory) {
         viewModelScope.launch {
             loadingSkin()
             (context.get() as? Context)?.let {
                 layoutFactory2.applySkin(it)
             }
+        }
+    }
+
+    override fun didClickResetSkin(layoutFactory2: SkinInflaterFactory) {
+        SkinLoader.resetSkin()
+        (context.get() as? Context)?.let {
+            layoutFactory2.applySkin(it)
         }
     }
 
