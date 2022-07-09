@@ -3,6 +3,7 @@ package com.wwe
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.widget.Button
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -34,7 +35,7 @@ class FactoryActivity : AppCompatActivity() {
         LayoutInflaterCompat.setFactory2(layoutInflater, layoutFactory2)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_factory_layout)
-        findViewById<AppCompatButton>(R.id.applySkinBtn).setOnClickListener {
+        findViewById<Button>(R.id.applySkinBtn).setOnClickListener {
             mViewModel.didClickLoadingSkin()
             Log.i("WWE", "FactoryActivity -> L39")
             layoutFactory2.applySkin(this)
