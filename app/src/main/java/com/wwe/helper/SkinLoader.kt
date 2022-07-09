@@ -96,9 +96,11 @@ object SkinLoader {
         // R.color.black
         // black
         val resourceEntryName = context.resources.getResourceEntryName(redId)
-        Log.i("WWE", "SkinLoader -> (redId: $redId, resourceEntryName: $resourceEntryName)")
+
         // color
         val resourceTypeName = context.resources.getResourceTypeName(redId)
+
+        // Get resource value from skin pack
         return resource?.getIdentifier(resourceEntryName, resourceTypeName, skinPkgName) ?: -1
     }
 }
