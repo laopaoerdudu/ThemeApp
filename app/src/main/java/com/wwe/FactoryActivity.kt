@@ -37,8 +37,7 @@ class FactoryActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_factory_layout)
         findViewById<Button>(R.id.applySkinBtn).setOnClickListener {
-            mViewModel.didClickLoadingSkin()
-            layoutFactory2.applySkin(this)
+            mViewModel.didClickLoadingSkin(layoutFactory2)
         }
 
         mViewModel.content.observe(this) {

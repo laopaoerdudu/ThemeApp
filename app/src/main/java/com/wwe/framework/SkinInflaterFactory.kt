@@ -39,20 +39,11 @@ class SkinInflaterFactory(private val delegate: AppCompatDelegate) : LayoutInfla
             for (i in 0 until attrs.attributeCount) {
                 val attributeName = attrs.getAttributeName(i)
                 if (isSupportAttr(attributeName)) {
-                    Log.i("WWE", "SkinInflaterFactory -> attributeName -> $attributeName")
                     val attributeValue = attrs.getAttributeValue(i)
                     val attrId = attributeValue.substring(1)
-                    Log.i(
-                        "WWE",
-                        "SkinInflaterFactory -> attributeValue -> $attributeValue, attrId -> $attrId"
-                    )
                     if (attributeValue.startsWith("?")) {
                         // 先解析主题，然后找到 id，再去找资源名称和类型
                         val resIdFromTheme = getResIdFromTheme(context, attrId.toInt())
-                        Log.i(
-                            "WWE",
-                            "SkinInflaterFactory -> resIdFromTheme -> $resIdFromTheme"
-                        )
                         if (resIdFromTheme > 0) {
                             attrView.attrItems.add(AttrItem(attributeName, resIdFromTheme))
                         }

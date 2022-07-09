@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.*
 import com.wwe.R
 import com.wwe.contract.LoadingContract
+import com.wwe.framework.SkinInflaterFactory
 import com.wwe.helper.SkinLoader
 import com.wwe.util.SingleLiveEvent
 import kotlinx.coroutines.*
@@ -19,19 +20,11 @@ class LoadingSkinViewModel(
     val showLoading: SingleLiveEvent by lazy { SingleLiveEvent() }
     val hideLoading: SingleLiveEvent by lazy { SingleLiveEvent() }
 
-    override fun didClickLoadingSkin() {
+    override fun didClickLoadingSkin(layoutFactory2: SkinInflaterFactory) {
         viewModelScope.launch {
             loadingSkin()
-        }
-    }
-
-    suspend fun loadingSkin() {
-        (context.get() as? AppCompatActivity)?.let { activity ->
-            withContext(Dispatchers.IO) {
-                SkinLoader.loadSkinResource(
-                    activity,
-                    File(activity.getExternalFilesDir(null), skinName).absolutePath
-                )
+            (context.get() as? Context)?.let {
+                layoutFactory2.applySkin(it)
             }
         }
     }
@@ -45,6 +38,17 @@ class LoadingSkinViewModel(
     }
 
     override val isFloatingButtonVisibility: MutableLiveData<Int> = MutableLiveData(View.GONE)
+
+    private suspend fun loadingSkin() {
+        (context.get() as? AppCompatActivity)?.let { activity ->
+            withContext(Dispatchers.IO) {
+                SkinLoader.loadSkinResource(
+                    activity,
+                    File(activity.getExternalFilesDir(null), skinName).absolutePath
+                )
+            }
+        }
+    }
 }
 
 class LoadingSkinViewModelFactory(val context: WeakReference<Context>, val skinName: String) :
