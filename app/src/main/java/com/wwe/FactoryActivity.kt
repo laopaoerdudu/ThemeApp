@@ -18,7 +18,7 @@ import java.lang.ref.WeakReference
 class FactoryActivity : AppCompatActivity() {
     private val mViewModel: LoadingSkinViewModel by viewModels {
         LoadingSkinViewModelFactory(
-            WeakReference(this), "skin.apk"
+            WeakReference(this), "wwe.skin"
         )
     }
 
