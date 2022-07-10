@@ -12,6 +12,9 @@ import com.wwe.util.getThemeColor
 import com.wwe.util.getThemeColor2
 import com.wwe.util.putTheme
 
+/**
+ * 当我们换肤设置了 setTheme 以后，需要重新创建 Activity 才会生效，会导致界面状态丢失
+ * */
 class ThemeActivity : AppCompatActivity() {
     private var num = 0
 
