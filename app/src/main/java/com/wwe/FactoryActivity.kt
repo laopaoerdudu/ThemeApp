@@ -1,7 +1,9 @@
 package com.wwe
 
 import android.os.Bundle
+import android.view.ViewGroup
 import android.widget.Button
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -27,6 +29,10 @@ class FactoryActivity : AppCompatActivity() {
         findViewById(R.id.tvContent)
     }
 
+    private val viewLayout: LinearLayout by lazy {
+        findViewById(R.id.viewLayout)
+    }
+
     private val floatingButton: FloatingActionButton by lazy {
         findViewById(R.id.floatingButton)
     }
@@ -43,6 +49,23 @@ class FactoryActivity : AppCompatActivity() {
 
         findViewById<Button>(R.id.resetSkinBtn).setOnClickListener {
             mViewModel.didClickResetSkin(layoutFactory2)
+        }
+
+        findViewById<Button>(R.id.addWidgetBtn).setOnClickListener {
+            val textView = TextView(this).apply {
+                setOnClickListener {
+                    viewLayout.removeView(it)
+                }
+            }
+
+            layoutFactory2.dynamicAddSkin(textView).apply {
+                addAttrItem("text", R.string.add_text_string)
+                addAttrItem("textColor", R.color.skin_color)
+            }
+
+            viewLayout.addView(textView, ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT
+            ))
         }
 
         mViewModel.content.observe(this) {

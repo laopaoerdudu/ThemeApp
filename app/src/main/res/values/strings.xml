@@ -2,4 +2,5 @@
     <string name="app_name">ThemeApp</string>
     <string name="title_string">WWE Roman Reigns</string>
     <string name="content_string">WWE Drew McIntyre</string>
+    <string name="add_text_string">Money in the bank</string>
 </resources>

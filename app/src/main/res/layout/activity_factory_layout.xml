@@ -47,7 +47,7 @@
         app:layout_constraintTop_toBottomOf="@id/applySkinBtn" />
 
     <Button
-        android:id="@+id/AddWidgetBtn"
+        android:id="@+id/addWidgetBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
@@ -59,7 +59,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@id/AddWidgetBtn" />
+        app:layout_constraintTop_toBottomOf="@id/addWidgetBtn" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingButton"
