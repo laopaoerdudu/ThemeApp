@@ -52,18 +52,16 @@ class FactoryActivity : AppCompatActivity() {
         }
 
         findViewById<Button>(R.id.addWidgetBtn).setOnClickListener {
-            val textView = TextView(this).apply {
+            val attrView = layoutFactory2.dynamicAddSkin(TextView(this).apply {
                 setOnClickListener {
                     viewLayout.removeView(it)
                 }
-            }
-
-            layoutFactory2.dynamicAddSkin(textView).apply {
+            }).apply {
                 addAttrItem("text", R.string.add_text_string)
                 addAttrItem("textColor", R.color.skin_color)
             }
-
-            viewLayout.addView(textView, ViewGroup.LayoutParams(
+            layoutFactory2.applyAttrView(this, attrView)
+            viewLayout.addView(attrView.view, ViewGroup.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT
             ))
         }

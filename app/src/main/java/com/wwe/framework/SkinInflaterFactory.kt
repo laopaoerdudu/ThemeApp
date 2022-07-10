@@ -64,21 +64,7 @@ class SkinInflaterFactory(private val delegate: AppCompatDelegate) : LayoutInfla
         return null
     }
 
-    fun applySkin(context: Context) {
-        attrViews.forEach { attrView ->
-            if (ViewCompat.isAttachedToWindow(attrView.view)) {
-                applyAttrView(context, attrView)
-            }
-        }
-    }
-
-    fun dynamicAddSkin(view: View): AttrView {
-        val attrView = AttrView(view)
-        attrViews.add(attrView)
-        return attrView
-    }
-
-    private fun applyAttrView(context: Context, attrView: AttrView) {
+    fun applyAttrView(context: Context, attrView: AttrView) {
         attrView.attrItems.forEach { attrItem ->
             if (attrView.view is TextView) {
                 when (attrItem.attrName) {
@@ -95,6 +81,20 @@ class SkinInflaterFactory(private val delegate: AppCompatDelegate) : LayoutInfla
                 }
             }
         }
+    }
+
+    fun applySkin(context: Context) {
+        attrViews.forEach { attrView ->
+            if (ViewCompat.isAttachedToWindow(attrView.view)) {
+                applyAttrView(context, attrView)
+            }
+        }
+    }
+
+    fun dynamicAddSkin(view: View): AttrView {
+        val attrView = AttrView(view)
+        attrViews.add(attrView)
+        return attrView
     }
 
     /**
