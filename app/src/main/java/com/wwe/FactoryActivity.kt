@@ -52,7 +52,7 @@ class FactoryActivity : AppCompatActivity() {
         }
 
         findViewById<Button>(R.id.addWidgetBtn).setOnClickListener {
-            val attrView = layoutFactory2.dynamicAddSkin(TextView(this).apply {
+            val attrView = layoutFactory2.dynamicAddView(TextView(this).apply {
                 setOnClickListener {
                     viewLayout.removeView(it)
                 }

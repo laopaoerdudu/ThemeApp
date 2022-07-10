@@ -91,7 +91,7 @@ class SkinInflaterFactory(private val delegate: AppCompatDelegate) : LayoutInfla
         }
     }
 
-    fun dynamicAddSkin(view: View): AttrView {
+    fun dynamicAddView(view: View): AttrView {
         val attrView = AttrView(view)
         attrViews.add(attrView)
         return attrView
