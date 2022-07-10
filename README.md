@@ -15,7 +15,7 @@
 2、制作皮肤包
 
 >皮肤包只需要资源文件，各种代码依赖都需要删除掉，打包以后观察下app包的大小以及里面的dex文件内容即可。哪里多余删除哪里。
->直接运行 `build.gradle`，生成 apk 文件（注意，运行 `Run/Redebug configurations` 中 `Launch Options` 选择 `launch nothing`）
+>运行 `Run/Debug configurations` 中 `Launch Options` 选择 `launch nothing`
 >否则 build 会报 `no default Activity` 的错误
 > 也可以通过执行 `assembleRelease` 命令打包 apk
 > 将 apk文件重命名，如将 black.apk，重命名为 black.skin 防止用户点击安装
