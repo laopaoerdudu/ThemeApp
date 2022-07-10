@@ -14,6 +14,7 @@ import com.wwe.loading.LoadingSkinViewModel
 import com.wwe.loading.LoadingSkinViewModelFactory
 import java.lang.ref.WeakReference
 
+// Ref: https://github.com/fengjundev/Android-Skin-Loader
 class FactoryActivity : AppCompatActivity() {
     private val mViewModel: LoadingSkinViewModel by viewModels {
         LoadingSkinViewModelFactory(
