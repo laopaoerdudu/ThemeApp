@@ -13,14 +13,24 @@ import kotlinx.coroutines.*
 import java.io.File
 import java.lang.ref.WeakReference
 
+// TODO: unit test for LoadingSkinViewModel
 class LoadingSkinViewModel(
     private val context: WeakReference<Context>,
     private val skinName: String
 ) : ViewModel(), LoadingContract.LoadingInput, LoadingContract.LoadingOutput {
 
-    // TODO: update it
-    val showLoading: SingleLiveEvent by lazy { SingleLiveEvent() }
-    val hideLoading: SingleLiveEvent by lazy { SingleLiveEvent() }
+    override fun viewDidLoad() {
+        showLoading.postCall()
+        // Call API?
+    }
+
+    override fun didClickCloseFlow() {
+        dismissFlow.postCall()
+    }
+
+    override fun didClickNavigation() {
+        navigateToMainActivity.call()
+    }
 
     override fun didClickApplySkin(layoutFactory2: SkinInflaterFactory) {
         viewModelScope.launch {
@@ -46,7 +56,15 @@ class LoadingSkinViewModel(
         MutableLiveData((context.get() as? Context)?.getString(R.string.title_string))
     }
 
-    override val isFloatingButtonVisibility: MutableLiveData<Int> = MutableLiveData(View.GONE)
+    override val dismissFlow: SingleLiveEvent by lazy { SingleLiveEvent() }
+
+    override val hideLoading: SingleLiveEvent by lazy { SingleLiveEvent() }
+
+    override val isFloatingButtonVisibility: MutableLiveData<Int> = MutableLiveData(View.VISIBLE)
+
+    override val showLoading: SingleLiveEvent by lazy { SingleLiveEvent() }
+
+    override val navigateToMainActivity: SingleLiveEvent by lazy { SingleLiveEvent() }
 
     private suspend fun loadingSkinResource() {
         (context.get() as? AppCompatActivity)?.let { activity ->

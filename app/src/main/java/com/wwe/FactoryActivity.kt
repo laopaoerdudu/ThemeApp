@@ -2,20 +2,22 @@ package com.wwe
 
 import android.os.Bundle
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.LinearLayout
-import android.widget.TextView
+import android.widget.*
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.LayoutInflaterCompat
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.wwe.framework.SkinInflaterFactory
+import com.wwe.loading.LoadingManager
 import com.wwe.loading.LoadingSkinViewModel
 import com.wwe.loading.LoadingSkinViewModelFactory
 import java.lang.ref.WeakReference
 
 // Ref: https://github.com/fengjundev/Android-Skin-Loader
 class FactoryActivity : AppCompatActivity() {
+
+    private val loadingManager by lazy { LoadingManager() }
+
     private val mViewModel: LoadingSkinViewModel by viewModels {
         LoadingSkinViewModelFactory(
             WeakReference(this), "wwe.skin"
@@ -34,6 +36,10 @@ class FactoryActivity : AppCompatActivity() {
         findViewById(R.id.viewLayout)
     }
 
+    private val loadingLayout: FrameLayout by lazy {
+        findViewById(R.id.loadingLayout)
+    }
+
     private val floatingButton: FloatingActionButton by lazy {
         findViewById(R.id.floatingButton)
     }
@@ -43,6 +49,7 @@ class FactoryActivity : AppCompatActivity() {
         LayoutInflaterCompat.setFactory2(layoutInflater, layoutFactory2)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_factory_layout)
+        mViewModel.viewDidLoad()
 
         findViewById<Button>(R.id.applySkinBtn).setOnClickListener {
             mViewModel.didClickApplySkin(layoutFactory2)
@@ -67,6 +74,19 @@ class FactoryActivity : AppCompatActivity() {
             ))
         }
 
+        floatingButton.setOnClickListener {
+            //mViewModel.didClickCloseFlow()
+            mViewModel.didClickNavigation()
+        }
+
+        mViewModel.showLoading.observe(this) {
+            loadingManager.showLoading()
+        }
+
+        mViewModel.hideLoading.observe(this) {
+            loadingManager.hideLoading()
+        }
+
         mViewModel.content.observe(this) {
             tvContent.text = it
         }
@@ -77,6 +97,14 @@ class FactoryActivity : AppCompatActivity() {
 
         mViewModel.isFloatingButtonVisibility.observe(this) {
             floatingButton.visibility = it
+        }
+
+        mViewModel.dismissFlow.observe(this) {
+            onBackPressed()
+        }
+
+        mViewModel.navigateToMainActivity.observe(this) {
+            Toast.makeText(this, "Router to MainActivity", Toast.LENGTH_LONG).show()
         }
     }
 }
